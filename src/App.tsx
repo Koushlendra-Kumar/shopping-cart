@@ -1,7 +1,7 @@
 function App() {
 
   return (
-    <button className="text-center" bg='red-400'>
+    <button className="text-center">
       Hello, World!
     </button>
   )
