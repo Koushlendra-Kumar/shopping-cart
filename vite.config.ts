@@ -1,17 +1,12 @@
 import { defineConfig } from "vite";
 import React from "@vitejs/plugin-react";
-import UnoCSS from "unocss/vite";
-import presetAttributify from '@unocss/preset-attributify'
-import presetUno from '@unocss/preset-uno'
+import UnoCSS from "unocss/vite"
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     UnoCSS({
-      presets: [
-        presetUno(),
-        presetAttributify(),
-      ],
+      configFile: '/uno.config.ts'
     }), 
     React()
   ],
