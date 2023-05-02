@@ -97,7 +97,7 @@ function App() {
         <h1>Shopping Cart</h1>
         <div className="h-18 w-md" flex="~ justify-around items-center">
         <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        Open Popover
+          Cart ({cart.length})
         </Button>
         <Popover
           id={id}
