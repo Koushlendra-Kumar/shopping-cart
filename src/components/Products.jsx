@@ -1,7 +1,6 @@
 import React from "react";
 
 function Product(props) {
-
   return (
     <div
       key={props.id}
@@ -20,7 +19,7 @@ function Product(props) {
       <h3>${props.price}</h3>
       <button
         type="button"
-        onClick={()=> props.updateCart(props.id)}
+        onClick={() => props.updateCart(props.id)}
         className="bg-amber h-8 w-28 hover:bg-blue"
       >
         Add to cart
