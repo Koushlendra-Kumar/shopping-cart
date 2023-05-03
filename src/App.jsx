@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Popover, Button } from '@mui/material';
 
+import Cart from "./components/Cart";
+import Product from "./components/Products";
+
 function App() {
   const [data, setData] = useState([]);
   const [cart, setCart] = useState([]);
@@ -15,6 +18,21 @@ function App() {
     setAnchorEl(null);
   };
 
+  const updateCart = (id) => {
+    let itemExist = cart.find((elem) => elem.id == id);
+          if (itemExist) {
+            let newCart = cart.map((elem) => {
+              if (elem.id == id) {
+                return { ...elem, quantity: elem.quantity + 1 };
+              } else {
+                return elem;
+              }
+            });
+            setCart(newCart);
+          } else {
+            setCart([...cart, { id, quantity: 1 }]);
+          }
+  }
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
@@ -25,70 +43,29 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() =>{
-    console.log(cart)
-  },[cart])
-
   const cartProducts = cart.length ? cart.map((elem) => {
     let item = data.find(product => product.id == elem.id)
     console.log(item);
     return (
-    <div
-      key={item.id}
-      className="w-sm m-2 bg-red-400"
-      flex="~ justify-center items-center"
-    >
-      <img
-        src={item.image}
-        height="50"
-        width="50"
-        border="~ solid green 1px rounded"
-        className="self-center"
+      <Cart
+        id={item.id}
+        title={item.title}
+        image={item.image}
+        quantity={elem.quantity}
+        price={item.price}
       />
-      <h6>{item.title.substring(0, 20) +'...'}</h6>
-      <h3>${item.price}</h3>
-      <div className='ml-5'><span>-</span>{elem.quantity}<span>+</span></div>
-    </div>
-  )}) : <p className="m-10">Add items to cart </p>
+    );
+  }) : <p className="m-10">Add items to cart </p>
 
   const products = data.map((item) => (
-    <div
-      key={item.id}
-      className="w-sm h-sm m-2 bg-red-400"
-      flex="~ justify-center items-center col"
-    >
-      <img
-        src={item.image}
-        height="100"
-        width="100"
-        border="~ solid green 1px rounded"
-        className="self-center"
-      />
-      <h4>{item.title}</h4>
-      <p>{item.description.substring(0, 80) + "..."}</p>
-      <h3>${item.price}</h3>
-      <button
-        type="button"
-        onClick={() => {
-          let itemExist = cart.find(elem => elem.id == item.id);
-          if(itemExist){
-            let newCart = cart.map(elem => {
-              if(elem.id == item.id){
-                return {...elem, quantity: elem.quantity + 1}
-              } else {
-                return elem;
-              }
-            })
-            setCart(newCart);
-          } else {
-            setCart([...cart, {id: item.id, quantity: 1}])
-          }
-        }}
-        className="bg-amber h-8 w-28 hover:bg-blue"
-      >
-        Add to cart
-      </button>
-    </div>
+    <Product 
+      id={item.id}
+      title={item.title}
+      image={item.image}
+      description={item.description}
+      price={item.price}
+      updateCart={updateCart}
+    />
   ));
 
   return (
