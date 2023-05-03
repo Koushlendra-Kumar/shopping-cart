@@ -5,7 +5,7 @@ function Product(props) {
     <div
       key={props.id}
       className="w-sm h-sm m-2 bg-red-400"
-      flex="~ justify-center propss-center col"
+      flex="~ justify-center items-center col"
     >
       <img
         src={props.image}
