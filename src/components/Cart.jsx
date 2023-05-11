@@ -1,27 +1,27 @@
 import React from "react";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
+} from "@mui/material";
 
 function Cart(props) {
   return (
-    <div
-      key={props.id}
-      className="w-sm m-2 bg-red-400"
-      flex="~ justify-center propss-center"
-    >
-      <img
-        src={props.image}
-        height="50"
-        width="50"
-        border="~ solid green 1px rounded"
-        className="self-center"
-      />
-      <h6>{props.title.substring(0, 20) + "..."}</h6>
-      <h3>${props.price}</h3>
-      <div className="ml-5">
-        <span>-</span>
-        {props.quantity}
-        <span>+</span>
-      </div>
-    </div>
+    <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar src={props.image} variant="square"></Avatar>
+        </ListItemAvatar>
+        <ListItemText
+          primary={
+            props.title.substring(0, 20) + "..." + `${"$" + props.price}`
+          }
+          secondary={"Quantity : " + props.quantity}
+        />
+      </ListItem>
+    </List>
   );
 }
 
